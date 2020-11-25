@@ -4,13 +4,13 @@ const user = ({
   name,
   bio,
   public_repos: repos,
-  public_gists,
+  public_gists: gists,
 }) => {
   return {
     avatar,
     login,
     repos,
-    public_gists,
+    gists,
     bio,
     name,
   }
