@@ -1,22 +1,35 @@
 import { useEffect } from 'react'
 
-const edgeOffset = 800
+export const EDGE_OFFSET = 800
 
-const useInfiniteScroll = (elRef, action) => {
-  useEffect(() => {
-    const el = elRef.current
+export const handleScroll = (el, action, handleRef) => {
+  if (el.scrollTop + el.offsetHeight < el.scrollHeight - EDGE_OFFSET)
+    return false
 
-    const handleScroll = () => {
-      if (el.scrollTop + el.offsetHeight < el.scrollHeight - edgeOffset) return
-      action()
-    }
+  el.removeEventListener('scroll', handleRef)
 
-    el.addEventListener('scroll', handleScroll)
+  return action()
+}
 
-    return () => {
-      el.removeEventListener('scroll', handleScroll)
-    }
-  })
+export const infiniteScrollHookCallback = (elRef, action, loading) => {
+  const el = elRef.current
+
+  const currentHandleScroll = () =>
+    handleScroll(el, action, currentHandleScroll)
+
+  if (loading) {
+    el.removeEventListener('scroll', currentHandleScroll)
+  } else {
+    el.addEventListener('scroll', currentHandleScroll)
+  }
+
+  return () => {
+    el.removeEventListener('scroll', currentHandleScroll)
+  }
+}
+
+const useInfiniteScroll = (elRef, action, loading) => {
+  useEffect(() => infiniteScrollHookCallback(elRef, action, loading), [loading])
 }
 
 export default useInfiniteScroll

@@ -54,7 +54,7 @@ const LoadingBar = styled.div(
       height: 100%;
       animation: ${isLoading
           ? css`
-              ${loadingAnimation} 300s
+              ${loadingAnimation} 30s
             `
           : css`
               ${loadingEndAnimation} 1.4s
@@ -89,7 +89,7 @@ const Assignment = () => {
     if (decision) window.location.href = `https://github.com/${login}`
   }
 
-  useInfiniteScroll(listRef, fetchMore)
+  useInfiniteScroll(listRef, fetchMore, loading)
 
   // eslint-disable-next-line no-console
   if (error) console.error(error)
