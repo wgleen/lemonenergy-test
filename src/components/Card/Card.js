@@ -78,7 +78,7 @@ const Container = styled.div(
   `,
 )
 
-const Footer = styled(PartialContainer)(
+export const Footer = styled(PartialContainer)(
   ({ theme: { colors, spacing } }) => css`
     display: flex;
     justify-content: flex-end;
