@@ -54,7 +54,7 @@ const LoadingBar = styled.div(
       height: 100%;
       animation: ${isLoading
           ? css`
-              ${loadingAnimation} 300s
+              ${loadingAnimation} 30s
             `
           : css`
               ${loadingEndAnimation} 1.4s
