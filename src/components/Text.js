@@ -11,12 +11,13 @@ export const Body100 = styled.p(
 )
 
 export const Body200 = styled.p(
-  ({ bold, theme: { typography } }) => css`
+  ({ bold, theme: { colors, typography } }) => css`
     font-family: ${typography.font.primary};
     font-weight: ${!bold ? '400' : '700'};
     font-size: 0.75rem;
     line-height: 1.5rem;
     letter-spacing: 0.02rem;
+    color: ${colors.text.light};
   `,
 )
 
