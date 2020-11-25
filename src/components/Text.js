@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
 export const Body100 = styled.p(
-  ({ bold }) => css`
-    font-family: 'Roboto', 'monospace';
+  ({ bold, theme: { typography } }) => css`
+    font-family: ${typography.font.primary};
     font-weight: ${!bold ? '400' : '700'};
     font-size: 1rem;
     line-height: 1.5rem;
@@ -11,8 +11,8 @@ export const Body100 = styled.p(
 )
 
 export const Body200 = styled.p(
-  ({ bold }) => css`
-    font-family: 'Roboto', 'monospace';
+  ({ bold, theme: { typography } }) => css`
+    font-family: ${typography.font.primary};
     font-weight: ${!bold ? '400' : '700'};
     font-size: 0.75rem;
     line-height: 1.5rem;
@@ -37,7 +37,8 @@ export const Title200 = styled.h1(
 )
 
 export const Overline100 = styled.p(
-  () => css`
+  ({ theme: { typography } }) => css`
+    font-family: ${typography.font.secondary};
     font-weight: 700;
     font-size: 0.5rem;
     text-transform: uppercase;
