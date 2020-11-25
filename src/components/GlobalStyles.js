@@ -3,7 +3,7 @@ import { createGlobalStyle, css } from 'styled-components'
 const headers = [1, 2, 3, 4, 5, 6].map(n => `h${n}`).join(', ')
 
 const GlobalStyles = createGlobalStyle(
-  ({ theme: { colors } }) => css`
+  ({ theme: { colors, typography } }) => css`
     * {
       box-sizing: border-box;
     }
@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle(
     body,
     #root {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
+      font-family: ${typography.font.primary};
       color: ${colors.text.main};
       background-color: ${colors.background};
       display: flex;
@@ -45,7 +45,7 @@ const GlobalStyles = createGlobalStyle(
     }
 
     ${headers} {
-      font-family: 'Red Hat Display', sans-serif;
+      font-family: ${typography.font.secondary};
       font-weight: 500;
       letter-spacing: -1px;
     }
