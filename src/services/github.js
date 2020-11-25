@@ -18,8 +18,11 @@ export const getUserDetails = async login => {
   return response.json()
 }
 
-export const getUsers = async ({ since = 0 } = {}) => {
-  const endpoint = `${config.BASE_API_URL}${config.USER_ENDPOINT}?since=${since}&per_page=${config.USERS_PER_REQUEST}`
+export const getUsers = async ({
+  since = 0,
+  usersPerBatch = config.USERS_PER_REQUEST,
+} = {}) => {
+  const endpoint = `${config.BASE_API_URL}${config.USER_ENDPOINT}?since=${since}&per_page=${usersPerBatch}`
   const response = await fetch(endpoint, {
     headers,
   })
@@ -28,8 +31,17 @@ export const getUsers = async ({ since = 0 } = {}) => {
 
   const users = await response.json()
 
-  return users.map(async user => {
+  const usersPromise = users.map(async user => {
     const details = await getUserDetails(user.login)
+
     return { ...user, ...details }
   })
+
+  const usersResolved = await Promise.allSettled(usersPromise)
+
+  const usersFiltered = usersResolved
+    .filter(item => item.status === 'fulfilled')
+    .map(item => item.value)
+
+  return Promise.resolve(usersFiltered)
 }
